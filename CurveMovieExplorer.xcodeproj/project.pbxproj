@@ -9,12 +9,17 @@
 /* Begin PBXBuildFile section */
 		90DA30AA238D657300AF9AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30A9238D657300AF9AF2 /* AppDelegate.swift */; };
 		90DA30AC238D657300AF9AF2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30AB238D657300AF9AF2 /* SceneDelegate.swift */; };
-		90DA30AE238D657300AF9AF2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30AD238D657300AF9AF2 /* ViewController.swift */; };
+		90DA30AE238D657300AF9AF2 /* CurveExplorerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30AD238D657300AF9AF2 /* CurveExplorerViewController.swift */; };
 		90DA30B1238D657300AF9AF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90DA30AF238D657300AF9AF2 /* Main.storyboard */; };
 		90DA30B3238D657400AF9AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90DA30B2238D657400AF9AF2 /* Assets.xcassets */; };
 		90DA30B6238D657400AF9AF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90DA30B4238D657400AF9AF2 /* LaunchScreen.storyboard */; };
 		90DA30C1238D657400AF9AF2 /* CurveMovieExplorerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30C0238D657400AF9AF2 /* CurveMovieExplorerTests.swift */; };
 		90DA30CC238D657400AF9AF2 /* CurveMovieExplorerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30CB238D657400AF9AF2 /* CurveMovieExplorerUITests.swift */; };
+		90DA30DE2390045B00AF9AF2 /* MovieOverviewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30DD2390045B00AF9AF2 /* MovieOverviewTableCell.swift */; };
+		90DA30E0239035ED00AF9AF2 /* CurveMovieExplorerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30DF239035ED00AF9AF2 /* CurveMovieExplorerViewModel.swift */; };
+		90DA30E2239038E000AF9AF2 /* NetworkQueryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30E1239038E000AF9AF2 /* NetworkQueryService.swift */; };
+		90DA30E4239038F600AF9AF2 /* NetworkDownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30E3239038F600AF9AF2 /* NetworkDownloadService.swift */; };
+		90DA30E62390395D00AF9AF2 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30E52390395D00AF9AF2 /* Movie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +43,7 @@
 		90DA30A6238D657300AF9AF2 /* CurveMovieExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurveMovieExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90DA30A9238D657300AF9AF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90DA30AB238D657300AF9AF2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		90DA30AD238D657300AF9AF2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		90DA30AD238D657300AF9AF2 /* CurveExplorerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveExplorerViewController.swift; sourceTree = "<group>"; };
 		90DA30B0238D657300AF9AF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90DA30B2238D657400AF9AF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90DA30B5238D657400AF9AF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +54,11 @@
 		90DA30C7238D657400AF9AF2 /* CurveMovieExplorerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CurveMovieExplorerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		90DA30CB238D657400AF9AF2 /* CurveMovieExplorerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveMovieExplorerUITests.swift; sourceTree = "<group>"; };
 		90DA30CD238D657400AF9AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90DA30DD2390045B00AF9AF2 /* MovieOverviewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieOverviewTableCell.swift; sourceTree = "<group>"; };
+		90DA30DF239035ED00AF9AF2 /* CurveMovieExplorerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurveMovieExplorerViewModel.swift; sourceTree = "<group>"; };
+		90DA30E1239038E000AF9AF2 /* NetworkQueryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkQueryService.swift; sourceTree = "<group>"; };
+		90DA30E3239038F600AF9AF2 /* NetworkDownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDownloadService.swift; sourceTree = "<group>"; };
+		90DA30E52390395D00AF9AF2 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +109,12 @@
 		90DA30A8238D657300AF9AF2 /* CurveMovieExplorer */ = {
 			isa = PBXGroup;
 			children = (
+				90DA30D9239003B100AF9AF2 /* Views */,
+				90DA30DA239003BC00AF9AF2 /* ViewModel */,
+				90DA30DB239003C900AF9AF2 /* Network */,
+				90DA30DC239003D900AF9AF2 /* Model */,
 				90DA30A9238D657300AF9AF2 /* AppDelegate.swift */,
 				90DA30AB238D657300AF9AF2 /* SceneDelegate.swift */,
-				90DA30AD238D657300AF9AF2 /* ViewController.swift */,
 				90DA30AF238D657300AF9AF2 /* Main.storyboard */,
 				90DA30B2238D657400AF9AF2 /* Assets.xcassets */,
 				90DA30B4238D657400AF9AF2 /* LaunchScreen.storyboard */,
@@ -126,6 +139,40 @@
 				90DA30CD238D657400AF9AF2 /* Info.plist */,
 			);
 			path = CurveMovieExplorerUITests;
+			sourceTree = "<group>";
+		};
+		90DA30D9239003B100AF9AF2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				90DA30AD238D657300AF9AF2 /* CurveExplorerViewController.swift */,
+				90DA30DD2390045B00AF9AF2 /* MovieOverviewTableCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		90DA30DA239003BC00AF9AF2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				90DA30DF239035ED00AF9AF2 /* CurveMovieExplorerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		90DA30DB239003C900AF9AF2 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				90DA30E1239038E000AF9AF2 /* NetworkQueryService.swift */,
+				90DA30E3239038F600AF9AF2 /* NetworkDownloadService.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		90DA30DC239003D900AF9AF2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				90DA30E52390395D00AF9AF2 /* Movie.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +306,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90DA30AE238D657300AF9AF2 /* ViewController.swift in Sources */,
+				90DA30AE238D657300AF9AF2 /* CurveExplorerViewController.swift in Sources */,
 				90DA30AA238D657300AF9AF2 /* AppDelegate.swift in Sources */,
+				90DA30E4239038F600AF9AF2 /* NetworkDownloadService.swift in Sources */,
+				90DA30E0239035ED00AF9AF2 /* CurveMovieExplorerViewModel.swift in Sources */,
+				90DA30DE2390045B00AF9AF2 /* MovieOverviewTableCell.swift in Sources */,
 				90DA30AC238D657300AF9AF2 /* SceneDelegate.swift in Sources */,
+				90DA30E62390395D00AF9AF2 /* Movie.swift in Sources */,
+				90DA30E2239038E000AF9AF2 /* NetworkQueryService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
