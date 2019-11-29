@@ -22,12 +22,13 @@ class CurveExplorerViewController: UIViewController, CurveMovieExplorerViewModel
         moviesTableView.rowHeight = UITableView.automaticDimension
         moviesTableView.estimatedRowHeight = 480
         
-        curveExplorerViewModel =  CurveMovieExplorerViewModel()
-        curveExplorerViewModel?.usersViewModelDelegate = self
         curveExplorerViewModel?.fetchMovies()
-        
         errorMessageContainer.layer.cornerRadius = 5.0
-        
+    }
+    
+    func configureController(withViewModel viewModel :CurveMovieExplorerViewModel){
+        curveExplorerViewModel =  viewModel
+        curveExplorerViewModel?.usersViewModelDelegate = self
     }
     
     //MARK: CurveExplorerViewModelProtocol methods
@@ -109,10 +110,6 @@ class CurveExplorerViewController: UIViewController, CurveMovieExplorerViewModel
       let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
       return Array(indexPathsIntersection)
     }
-    
-
-
-
 
 }
 

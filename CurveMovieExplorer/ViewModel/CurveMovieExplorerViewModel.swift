@@ -28,8 +28,6 @@ struct NetworkResponse :Codable {
 
 class CurveMovieExplorerViewModel :NSObject, NetworkDownloadServiceProtocol {
 
-    
-    
     private let kResourceBaseUrl = "https://api.themoviedb.org/3/movie/popular?"
     private let kResourceUrlQuery = "api_key=331267eab0795c04483f55976e7ef214&language=en-US&page="
     private let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
