@@ -32,7 +32,7 @@ class CurveMovieExplorerViewModel :NSObject, URLSessionDownloadDelegate {
     private let kResourceUrlQuery = "api_key=331267eab0795c04483f55976e7ef214&language=en-US&page="
     private let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     
-    private var movies = [Movie]()
+    private var movies :[Movie]!
     private var totalNumberOfMovies = 0
     private let networkQueryService = NetworkQueryService()
     private var networkDownloadService :NetworkDownloadService?
@@ -45,6 +45,13 @@ class CurveMovieExplorerViewModel :NSObject, URLSessionDownloadDelegate {
     
     override init() {
         super.init()
+        networkDownloadService = NetworkDownloadService(withDelegate: self)
+        movies = [Movie]()
+    }
+    
+    init(withMovies moviesForInit :[Movie]) {
+        super.init()
+        movies = moviesForInit
         networkDownloadService = NetworkDownloadService(withDelegate: self)
     }
     
@@ -130,7 +137,7 @@ class CurveMovieExplorerViewModel :NSObject, URLSessionDownloadDelegate {
         return releaseDate
     }
     
-    func voteAverage(forCellAtIndex cellIndex :Int) -> String
+    func voteAveragePercentString(forCellAtIndex cellIndex :Int) -> String
     {
         var voteAverageString = "N/A"
         var voteAverage :Double?

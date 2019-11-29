@@ -10,25 +10,50 @@ import XCTest
 @testable import CurveMovieExplorer
 
 class CurveMovieExplorerTests: XCTestCase {
-
+    
+    var systemUnderTest: CurveMovieExplorerViewModel!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+      super.setUp()
+        systemUnderTest = CurveMovieExplorerViewModel.init(withMovies: mockMovies())
     }
-
+    
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+      systemUnderTest = nil
+      super.tearDown()
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testFavouritesToggling(){
+        systemUnderTest.toggleFavouriteRequest(forItem: 0)
+        XCTAssertTrue(systemUnderTest.favouriteStatus(forCellAtIndex: 0), "Failed: Expected favourite Status for user to be true")
+        
+        systemUnderTest.toggleFavouriteRequest(forItem: 0)
+        XCTAssertFalse(systemUnderTest.favouriteStatus(forCellAtIndex: 0), "Failed: Expected favourite Status for user to be false")
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testVoteAveragePercentStringCreation(){
+        let voteAverageString = systemUnderTest.voteAveragePercentString(forCellAtIndex: 0)
+        XCTAssertEqual(voteAverageString, "76.0%", "Failed: Expected created percent string to be 76.0%")
+    }
+    
+    
+    func mockMovies() -> [Movie] {
+        let jsonString = """
+        {
+            "title": "Spider-Man: Far from Home",
+            "poster_path": "/5myQbDzw3l8K9yofUXRJ4UTVgam.jpg",
+            "release_date": "2019-06-28",
+            "overview": "Peter Parker and his friends go on a summer trip",
+            "vote_average": 7.6
         }
+        """
+
+        let jsonData = jsonString.data(using: .utf8)!
+        let mockMovie = try! JSONDecoder().decode(Movie.self, from: jsonData)
+        let mockMovies = [mockMovie]
+        
+        return mockMovies
     }
 
 }

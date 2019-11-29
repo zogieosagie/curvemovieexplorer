@@ -76,7 +76,7 @@ class CurveExplorerViewController: UIViewController, CurveMovieExplorerViewModel
             
             movieOverviewCell.movieTitle.text = curveExplorerViewModel?.movieTitle(forCellAtIndex: indexPath.row)
             movieOverviewCell.movieOverview.text = curveExplorerViewModel?.movieOverview(forCellAtIndex: indexPath.row)
-            movieOverviewCell.voteAverage.text = curveExplorerViewModel?.voteAverage(forCellAtIndex: indexPath.row)
+            movieOverviewCell.voteAverage.text = curveExplorerViewModel?.voteAveragePercentString(forCellAtIndex: indexPath.row)
             movieOverviewCell.releaseDate.text = curveExplorerViewModel?.releaseDate(forCellAtIndex: indexPath.row)
             
 
