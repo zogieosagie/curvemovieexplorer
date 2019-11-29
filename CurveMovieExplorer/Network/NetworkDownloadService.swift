@@ -8,13 +8,25 @@
 
 import Foundation
 
-class NetworkDownloadService {
+protocol NetworkDownloadServiceProtocol {
+    func networkDownloadServiceCompletedDownload(atIndex indexOfDownload :Int, toLocation destinationURL:URL)
+}
+
+class NetworkDownloadService :NSObject, URLSessionDownloadDelegate {
+
+    
     var downloadsinProgress = [URL : Int]()
     var downloadsSession :URLSession?
+    var networkDownloadServiceDelegate :NetworkDownloadServiceProtocol?
     
-    init(withDelegate delegate :URLSessionDelegate?) {
+    private let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    
+    init(withDelegate delegate :NetworkDownloadServiceProtocol?) {
+        super.init()
+        
         let config = URLSessionConfiguration.background(withIdentifier:"com.stackOverflowUsers.backgroundsession")
-                    downloadsSession = URLSession(configuration: config, delegate: delegate, delegateQueue: nil)
+                    downloadsSession = URLSession(configuration: config, delegate: self, delegateQueue: nil)
+        self.networkDownloadServiceDelegate = delegate
     }
     
     /*
@@ -26,4 +38,45 @@ class NetworkDownloadService {
         downloadsinProgress[resourceUrl] = index
         
     }
+    
+    //MARK: URLSession delegate
+    
+    /*
+     When download is complete:
+     1. Find out the index of the item that initiated the download. This will enable us send a specific message to the delegate to reload an item rather than everything.
+     2. Copy the image to disk.
+     3. Update the local imagepath url for the model
+     4. Notify the delegate.
+     */
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+                guard let sourceURL = downloadTask.originalRequest?.url else {
+            return
+          }
+          
+          let indexOfDownload = downloadsinProgress[sourceURL]
+          
+          guard indexOfDownload != nil else{
+              return
+          }
+          
+          downloadsinProgress[sourceURL] = nil
+          let destinationURL = localFilePath(for: sourceURL)
+          let fileManager = FileManager.default
+          try? fileManager.removeItem(at: destinationURL)
+
+          do {
+            try fileManager.copyItem(at: location, to: destinationURL)
+          } catch _ {
+            return
+          }
+          
+        networkDownloadServiceDelegate?.networkDownloadServiceCompletedDownload(atIndex: indexOfDownload!, toLocation: destinationURL)
+
+    }
+    
+    func localFilePath(for url: URL) -> URL {
+      return documentsPath.appendingPathComponent(url.lastPathComponent)
+    }
+
 }

@@ -26,7 +26,9 @@ struct NetworkResponse :Codable {
     }
 }
 
-class CurveMovieExplorerViewModel :NSObject, URLSessionDownloadDelegate {
+class CurveMovieExplorerViewModel :NSObject, NetworkDownloadServiceProtocol {
+
+    
     
     private let kResourceBaseUrl = "https://api.themoviedb.org/3/movie/popular?"
     private let kResourceUrlQuery = "api_key=331267eab0795c04483f55976e7ef214&language=en-US&page="
@@ -207,54 +209,18 @@ class CurveMovieExplorerViewModel :NSObject, URLSessionDownloadDelegate {
     }
     
     
-    
-    //MARK: URLSession delegate
-    
-    /*
-     When download is complete:
-     1. Find out the index of the item that initiated the download. This will enable us send a specific message to the delegate to reload an item rather than everything.
-     2. Copy the image to disk.
-     3. Update the local imagepath url for the model
-     4. Notify the delegate.
-     */
-    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        
-        
-        guard let sourceURL = downloadTask.originalRequest?.url else {
-          return
-        }
-        
-        let indexOfDownload = networkDownloadService?.downloadsinProgress[sourceURL]
-        
-        guard indexOfDownload != nil else{
-            return
-        }
-        
-        networkDownloadService?.downloadsinProgress[sourceURL] = nil
-        let destinationURL = localFilePath(for: sourceURL)
-        let fileManager = FileManager.default
-        try? fileManager.removeItem(at: destinationURL)
-
-        do {
-          try fileManager.copyItem(at: location, to: destinationURL)
-        } catch _ {
-          return
-        }
-        
-        guard indexOfDownload! < movies.count else {
-            return
-        }
-        
-        let thisMovie = movies[indexOfDownload!]
-        thisMovie.updateLocalImageUrl(updateUrl: destinationURL)
-        
-      DispatchQueue.main.async { [weak self] in
-        self?.usersViewModelDelegate?.userModelUpdatedItem(atRow: indexOfDownload!)
-      }
-    }
-    
     func localFilePath(for url: URL) -> URL {
       return documentsPath.appendingPathComponent(url.lastPathComponent)
+    }
+    
+    func networkDownloadServiceCompletedDownload(atIndex indexOfDownload :Int, toLocation destinationURL :URL)
+    {
+        let thisMovie = movies[indexOfDownload]
+          thisMovie.updateLocalImageUrl(updateUrl: destinationURL)
+          
+        DispatchQueue.main.async { [weak self] in
+          self?.usersViewModelDelegate?.userModelUpdatedItem(atRow: indexOfDownload)
+        }
     }
     
     
