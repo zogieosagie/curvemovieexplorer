@@ -9,31 +9,39 @@
 import Foundation
 
 protocol CurveMovieExplorerViewModelProtocol {
-    func userViewModelUpdatedUsersList(withErrorMessage errorMessage :String?)
+    func userViewModelUpdatedUsersList(with newIndexPathsToReload: [IndexPath]?, andErrorMessage errorMessage: String?)
     func userModelUpdatedItem(atRow row:Int)
 }
 
 
 struct NetworkResponse :Codable {
     var fetchedMovies :[Movie]
+    let totalResults :Int
+    let page :Int
     
     enum CodingKeys: String, CodingKey {
         case fetchedMovies = "results"
+        case totalResults = "total_results"
+        case page = "page"
     }
 }
 
 class CurveMovieExplorerViewModel :NSObject, URLSessionDownloadDelegate {
     
-    let kResourceBaseUrl = "https://api.themoviedb.org/3/movie/popular?"
-    let kResourceUrlQuery = "api_key=331267eab0795c04483f55976e7ef214&language=en-US&page=1"
-    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    private let kResourceBaseUrl = "https://api.themoviedb.org/3/movie/popular?"
+    private let kResourceUrlQuery = "api_key=331267eab0795c04483f55976e7ef214&language=en-US&page="
+    private let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    
+    private var movies = [Movie]()
+    private var totalNumberOfMovies = 0
+    private let networkQueryService = NetworkQueryService()
+    private var networkDownloadService :NetworkDownloadService?
+    private var currentPage = 1
+    private var isFetchInProgress = false
+    
+    private var networkResponse :Codable = [Movie]()
     
     var usersViewModelDelegate :CurveMovieExplorerViewModelProtocol?
-    var movies = [Movie]()
-    let networkQueryService = NetworkQueryService()
-    var networkDownloadService :NetworkDownloadService?
-    
-    var networkResponse :Codable = [Movie]()
     
     override init() {
         super.init()
@@ -42,30 +50,54 @@ class CurveMovieExplorerViewModel :NSObject, URLSessionDownloadDelegate {
     
     func fetchMovies()
     {
-        networkQueryService.performNetworkQuery(withBaseUrlString: kResourceBaseUrl, andQueryString: kResourceUrlQuery, completion: processNetworkQuery(returnedData:queryError:))
+        guard !isFetchInProgress else {
+          return
+        }
+        isFetchInProgress = true
+        
+        let pageToFetch = "\(currentPage)"
+        networkQueryService.performNetworkQuery(withBaseUrlString: kResourceBaseUrl, andQueryString: (kResourceUrlQuery + pageToFetch), completion: processNetworkQuery(returnedData:queryError:))
     }
     
     func processNetworkQuery(returnedData data :Data?, queryError error :Error?){
         
-        movies = [Movie]()
+        isFetchInProgress = false
         
         //Notify delegate with error when we are done.
         if(error == nil){
             do{
+                self.currentPage += 1
+                self.isFetchInProgress = false
                 
-                movies = try JSONDecoder().decode(NetworkResponse.self, from: data!).fetchedMovies
-                self.usersViewModelDelegate?.userViewModelUpdatedUsersList(withErrorMessage: nil)
+                
+                let networkResponse = try JSONDecoder().decode(NetworkResponse.self, from: data!)
+                self.movies.append(contentsOf: networkResponse.fetchedMovies)
+                totalNumberOfMovies = networkResponse.totalResults
+                
+                if(networkResponse.page > 1){
+                let indexPathsToReload = self.computeIndexPathsToReload(from: networkResponse.fetchedMovies)
+                self.usersViewModelDelegate?.userViewModelUpdatedUsersList(with :indexPathsToReload, andErrorMessage: nil)
+                }
+                else{
+                    self.usersViewModelDelegate?.userViewModelUpdatedUsersList(with :nil, andErrorMessage: nil)
+                }
                 
             }
             catch{
-                self.usersViewModelDelegate?.userViewModelUpdatedUsersList(withErrorMessage: NSLocalizedString("List of movies could not be retrieved.", comment: "NEEDS_LOCALIZATION"))
+                self.usersViewModelDelegate?.userViewModelUpdatedUsersList(with :nil, andErrorMessage: NSLocalizedString("List of movies could not be retrieved.", comment: "NEEDS_LOCALIZATION"))
             }
         }
         else{
             
-            self.usersViewModelDelegate?.userViewModelUpdatedUsersList(withErrorMessage: error?.localizedDescription)
+            self.usersViewModelDelegate?.userViewModelUpdatedUsersList(with :nil, andErrorMessage: error?.localizedDescription)
         }
         
+    }
+    
+    private func computeIndexPathsToReload(from newlyFetchedMovies: [Movie]) -> [IndexPath] {
+      let startIndex = movies.count - newlyFetchedMovies.count
+      let endIndex = startIndex + newlyFetchedMovies.count
+      return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
     
     func movieTitle(forCellAtIndex cellIndex :Int) -> String
@@ -152,7 +184,11 @@ class CurveMovieExplorerViewModel :NSObject, URLSessionDownloadDelegate {
     
     func numberOfMovies() -> Int{
         
-        return movies.count
+        return totalNumberOfMovies
+    }
+    
+    func currentCount() -> Int{
+      return movies.count
     }
     
     func toggleFavouriteRequest(forItem itemIndex:Int)

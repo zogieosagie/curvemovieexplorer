@@ -36,12 +36,12 @@ class MovieOverviewTableCell: UITableViewCell {
         
         didSet{
             if(isFavourite == true){
-                let favouriteImage = UIImage(systemName: "suit.heart.fill", withConfiguration: .none)
+                let favouriteImage = UIImage(systemName: "heart.fill", withConfiguration: .none)
                 favouritesButton.tintColor = UIColor.red
                 favouritesButton.setImage(favouriteImage, for: .normal)
             }
             else{
-                let favouriteImage = UIImage(systemName: "suit.heart", withConfiguration: .none)
+                let favouriteImage = UIImage(systemName: "heart", withConfiguration: .none)
                 favouritesButton.tintColor = UIColor.white
                 favouritesButton.setImage(favouriteImage, for: .normal)
             }
@@ -85,6 +85,9 @@ class MovieOverviewTableCell: UITableViewCell {
         if let urlToLoad = url{
             let data = try? Data(contentsOf: urlToLoad)
             posterImage.image = UIImage(data: data!)
+        }
+        else{
+            posterImage.image = UIImage(named: "awaiting_image")
         }
     }
 

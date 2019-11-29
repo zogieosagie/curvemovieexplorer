@@ -74,14 +74,14 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieOverviewTableCell" rowHeight="480" id="Ivr-gj-0gC" customClass="MovieOverviewTableCell" customModule="CurveMovieExplorer" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieOverviewTableCell" rowHeight="480" id="Ivr-gj-0gC" customClass="MovieOverviewTableCell" customModule="CurveMovieExplorer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="480"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ivr-gj-0gC" id="Y0Y-5u-qSD">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="480"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rrP-88-bQP">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="awaiting_image" translatesAutoresizingMaskIntoConstraints="NO" id="rrP-88-bQP">
                                                     <rect key="frame" x="30" y="20" width="354" height="354"/>
                                                     <color key="backgroundColor" red="0.086274509799999996" green="0.086274509799999996" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -114,7 +114,7 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <state key="normal" image="suit.heart.fill">
+                                                    <state key="normal" image="suit.heart" catalog="system">
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
                                                     </state>
                                                     <connections>
@@ -164,10 +164,49 @@
                                             <outlet property="voteAverage" destination="GHQ-lp-2LS" id="CZw-uV-GMs"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MovieOverviewLoadingTableCell" rowHeight="80" id="Uuk-pu-agO">
+                                        <rect key="frame" x="0.0" y="508" width="414" height="80"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uuk-pu-agO" id="i9e-4C-B8F">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="6v1-er-pXi">
+                                                    <rect key="frame" x="30" y="21.5" width="37" height="37"/>
+                                                    <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </activityIndicatorView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait . . ." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIG-4m-q8t">
+                                                    <rect key="frame" x="87" y="30" width="108" height="20"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y9K-Ci-ptu">
+                                                    <rect key="frame" x="0.0" y="79.5" width="414" height="0.5"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="0.5" id="vjq-p8-yPt"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="Y9K-Ci-ptu" firstAttribute="leading" secondItem="i9e-4C-B8F" secondAttribute="leading" id="3N9-8c-G0R"/>
+                                                <constraint firstAttribute="trailing" secondItem="Y9K-Ci-ptu" secondAttribute="trailing" id="EQy-4z-ozD"/>
+                                                <constraint firstAttribute="bottom" secondItem="Y9K-Ci-ptu" secondAttribute="bottom" id="Jxh-pA-jkl"/>
+                                                <constraint firstItem="tIG-4m-q8t" firstAttribute="leading" secondItem="6v1-er-pXi" secondAttribute="trailing" constant="20" id="Wsg-jX-GbZ"/>
+                                                <constraint firstItem="6v1-er-pXi" firstAttribute="leading" secondItem="i9e-4C-B8F" secondAttribute="leading" constant="30" id="mwJ-ac-Mie"/>
+                                                <constraint firstItem="tIG-4m-q8t" firstAttribute="centerY" secondItem="i9e-4C-B8F" secondAttribute="centerY" id="tLh-Bd-iIg"/>
+                                                <constraint firstItem="6v1-er-pXi" firstAttribute="centerY" secondItem="i9e-4C-B8F" secondAttribute="centerY" id="yi5-TY-8aF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="gde-C3-SjO"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="wAY-Di-s2V"/>
+                                    <outlet property="prefetchDataSource" destination="BYZ-38-t0r" id="d5w-mj-IVO"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -198,7 +237,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="awaiting_image" width="600" height="764"/>
         <image name="exclamationmark.triangle.fill" catalog="system" width="64" height="56"/>
-        <image name="suit.heart.fill" width="64" height="54"/>
+        <image name="suit.heart" catalog="system" width="64" height="54"/>
     </resources>
 </document>
