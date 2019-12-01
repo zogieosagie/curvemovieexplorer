@@ -18,26 +18,23 @@ class CurveMovieExplorerViewModel :NSObject, NetworkDownloadServiceProtocol {
     private let kResourceBaseUrl = "https://api.themoviedb.org/3/movie/popular?"
     private let kResourceUrlQuery = "api_key=331267eab0795c04483f55976e7ef214&language=en-US&page="
     
-    private var movies :[Movie]!
+    var movies = [Movie]()
     private var totalNumberOfMovies = 0
-    private let networkQueryService = NetworkQueryService()
-    private var networkDownloadService :NetworkDownloadService?
+    private var networkQueryService  :NetworkQueryService!
+    private var networkDownloadService :NetworkDownloadService!
     private var currentPage = 1
     private var isFetchInProgress = false
         
     var usersViewModelDelegate :CurveMovieExplorerViewModelProtocol?
     
-    override init() {
+    init(withQueryService queryService :NetworkQueryService, andDownloadService downloadService :NetworkDownloadService) {
         super.init()
-        networkDownloadService = NetworkDownloadService(withDelegate: self)
-        movies = [Movie]()
+        self.networkDownloadService = downloadService
+        self.networkDownloadService.networkDownloadServiceDelegate = self
+        
+        self.networkQueryService = queryService
     }
     
-    init(withMovies moviesForInit :[Movie]) {
-        super.init()
-        movies = moviesForInit
-        networkDownloadService = NetworkDownloadService(withDelegate: self)
-    }
     
     func fetchMovies()
     {

@@ -14,19 +14,16 @@ protocol NetworkDownloadServiceProtocol {
 
 class NetworkDownloadService :NSObject, URLSessionDownloadDelegate {
 
-    
     var downloadsinProgress = [URL : Int]()
     var downloadsSession :URLSession?
     var networkDownloadServiceDelegate :NetworkDownloadServiceProtocol?
     
     private let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     
-    init(withDelegate delegate :NetworkDownloadServiceProtocol?) {
+    override init() {
         super.init()
-        
-        let config = URLSessionConfiguration.background(withIdentifier:"com.stackOverflowUsers.backgroundsession")
+        let config = URLSessionConfiguration.background(withIdentifier:"com.curvemovieexplorer.backgroundsession")
                     downloadsSession = URLSession(configuration: config, delegate: self, delegateQueue: nil)
-        self.networkDownloadServiceDelegate = delegate
     }
     
     /*

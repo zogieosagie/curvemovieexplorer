@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
         let explorerViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! CurveExplorerViewController
         
-        explorerViewController.configureController(withViewModel: CurveMovieExplorerViewModel())
+        explorerViewController.configureController(withViewModel: CurveMovieExplorerViewModel(withQueryService: NetworkQueryService(), andDownloadService: NetworkDownloadService()))
 
         window!.rootViewController = explorerViewController 
         window!.makeKeyAndVisible()

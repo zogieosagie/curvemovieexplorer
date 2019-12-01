@@ -16,7 +16,8 @@ class CurveMovieExplorerTests: XCTestCase {
     override func setUp() {
         
       super.setUp()
-        systemUnderTest = CurveMovieExplorerViewModel.init(withMovies: mockMovies())
+        systemUnderTest = CurveMovieExplorerViewModel.init(withQueryService: NetworkQueryService(), andDownloadService: NetworkDownloadService())
+        systemUnderTest.movies = mockMovies()
     }
     
     override func tearDown() {
