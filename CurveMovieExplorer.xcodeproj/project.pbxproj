@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90938FBB239403660088ADA0 /* MovieCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90938FBA239403660088ADA0 /* MovieCollection.swift */; };
 		90DA30AA238D657300AF9AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30A9238D657300AF9AF2 /* AppDelegate.swift */; };
 		90DA30AC238D657300AF9AF2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30AB238D657300AF9AF2 /* SceneDelegate.swift */; };
 		90DA30AE238D657300AF9AF2 /* CurveExplorerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA30AD238D657300AF9AF2 /* CurveExplorerViewController.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		90938FBA239403660088ADA0 /* MovieCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollection.swift; sourceTree = "<group>"; };
 		90DA30A6238D657300AF9AF2 /* CurveMovieExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurveMovieExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90DA30A9238D657300AF9AF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90DA30AB238D657300AF9AF2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				90DA30E52390395D00AF9AF2 /* Movie.swift */,
+				90938FBA239403660088ADA0 /* MovieCollection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				90DA30E4239038F600AF9AF2 /* NetworkDownloadService.swift in Sources */,
 				90DA30E0239035ED00AF9AF2 /* CurveMovieExplorerViewModel.swift in Sources */,
 				90DA30DE2390045B00AF9AF2 /* MovieOverviewTableCell.swift in Sources */,
+				90938FBB239403660088ADA0 /* MovieCollection.swift in Sources */,
 				90DA30AC238D657300AF9AF2 /* SceneDelegate.swift in Sources */,
 				90DA30E62390395D00AF9AF2 /* Movie.swift in Sources */,
 				90DA30E2239038E000AF9AF2 /* NetworkQueryService.swift in Sources */,

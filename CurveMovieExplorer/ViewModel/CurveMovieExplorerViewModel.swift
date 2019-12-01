@@ -13,19 +13,6 @@ protocol CurveMovieExplorerViewModelProtocol {
     func userModelUpdatedItem(atRow row:Int)
 }
 
-
-struct NetworkResponse :Codable {
-    var fetchedMovies :[Movie]
-    let totalResults :Int
-    let page :Int
-    
-    enum CodingKeys: String, CodingKey {
-        case fetchedMovies = "results"
-        case totalResults = "total_results"
-        case page = "page"
-    }
-}
-
 class CurveMovieExplorerViewModel :NSObject, NetworkDownloadServiceProtocol {
 
     private let kResourceBaseUrl = "https://api.themoviedb.org/3/movie/popular?"
@@ -37,9 +24,7 @@ class CurveMovieExplorerViewModel :NSObject, NetworkDownloadServiceProtocol {
     private var networkDownloadService :NetworkDownloadService?
     private var currentPage = 1
     private var isFetchInProgress = false
-    
-    private var networkResponse :Codable = [Movie]()
-    
+        
     var usersViewModelDelegate :CurveMovieExplorerViewModelProtocol?
     
     override init() {
@@ -76,12 +61,12 @@ class CurveMovieExplorerViewModel :NSObject, NetworkDownloadServiceProtocol {
                 self.isFetchInProgress = false
                 
                 
-                let networkResponse = try JSONDecoder().decode(NetworkResponse.self, from: data!)
-                self.movies.append(contentsOf: networkResponse.fetchedMovies)
-                totalNumberOfMovies = networkResponse.totalResults
+                let movieCollection = try JSONDecoder().decode(MovieCollection.self, from: data!)
+                self.movies.append(contentsOf: movieCollection.fetchedMovies)
+                totalNumberOfMovies = movieCollection.totalResults
                 
-                if(networkResponse.page > 1){
-                let indexPathsToReload = self.computeIndexPathsToReload(from: networkResponse.fetchedMovies)
+                if(movieCollection.page > 1){
+                let indexPathsToReload = self.computeIndexPathsToReload(from: movieCollection.fetchedMovies)
                 self.usersViewModelDelegate?.userViewModelUpdatedUsersList(with :indexPathsToReload, andErrorMessage: nil)
                 }
                 else{
